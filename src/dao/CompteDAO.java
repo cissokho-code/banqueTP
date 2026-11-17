@@ -28,7 +28,7 @@ public class CompteDAO {
 
     // 2- modification
     public void modifierCompte(Compte c){
-        String sql = "UPDATE compte SET numero=?,solde=?, WHERE id_proprietaire=?";
+        String sql = "UPDATE compte SET numero=?,solde=? WHERE id_proprietaire=?";
         try(Connection cn = Connexion.ouvrir();
             PreparedStatement ps = cn.prepareStatement(sql)){
             ps.setString(1,c.getNumero());

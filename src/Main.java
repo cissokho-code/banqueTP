@@ -38,7 +38,7 @@ class Main {
                     afficherCompte();
                     break;
                 case 8:
-
+                    rechercheProprietaire();
                     break;
                 case 9:
                     modifierCompte();
@@ -65,7 +65,7 @@ class Main {
         System.out.println("================ compte =====================");
         System.out.println("6. Ajouter un Compte");
         System.out.println("7. Afficher les Comptes");
-        System.out.println("9. Rechercher un Compte par id_proprietaire");
+        System.out.println("8. Rechercher un Compte par id_proprietaire");
         System.out.println("9. Modifier un Compte");
         System.out.println("10. Supprimer un Compte");
 
@@ -214,15 +214,12 @@ class Main {
         id_proprietaire = Integer.parseInt(sc.nextLine());
         Compte c = cDAO.rechercherUnCompte(id_proprietaire);
         if (c != null){
-            System.out.print("donnez le nouveau Id : ");
+            System.out.print("donnez le nouveau Numero: ");
             nouvNumero = sc.nextLine();
-            System.out.print("donnez le nouveau Numero : ");
+            System.out.print("donnez le nouveau solde : ");
             nouvSolde =Double.parseDouble(sc.nextLine());
-            System.out.print("donnez le nouveau Solde : ");
-            nouvId_proprietaire =Integer.parseInt(sc.nextLine());
             c.setNumero(nouvNumero);
             c.setSolde(nouvSolde);
-            c.setId_proprietaire(nouvId_proprietaire);
            cDAO.modifierCompte(c);
             System.out.println("Compte modifier avec succès");
         }
