@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProprietaireDAO {
-    // 1- sauvogarder ou enregistriment
+    // 1- sauvogarder
    public void ajouterProprietaire(Proprietaire p){
        String sql = "INSERT INTO Proprietaire(nom,prenom,adresse) VALUES(?,?,?)";
        try(Connection cn = Connexion.ouvrir();

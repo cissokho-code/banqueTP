@@ -28,12 +28,12 @@ public class CompteDAO {
 
     // 2- modification
     public void modifierCompte(Compte c){
-        String sql = "UPDATE compte SET numero=?,solde=? WHERE id_proprietaire=?";
+        String sql = "UPDATE compte SET solde=? WHERE id_proprietaire=?"; //numero=?
         try(Connection cn = Connexion.ouvrir();
             PreparedStatement ps = cn.prepareStatement(sql)){
-            ps.setString(1,c.getNumero());
-            ps.setDouble(2,c.getSolde());
-            ps.setInt(3,c.getId_proprietaire());
+           // ps.setString(1,c.getNumero());
+            ps.setDouble(1,c.getSolde());
+            ps.setInt(2,c.getId_proprietaire());
             ps.executeUpdate();
         }catch(SQLException ex){
             System.out.println("Erreur !!!!!"+ ex.getMessage());

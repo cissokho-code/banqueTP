@@ -12,10 +12,9 @@ class Main {
     CompteDAO cDAO = new CompteDAO();
     void main() {
         int choix ;
-
         do {
             affichageMenu();
-            switch (choix = Integer.parseInt(sc.nextLine())){
+            switch (choix = lireUNnombreEntier()){
                 case 1:
                     ajoutProprietaire();
                     break;
@@ -38,7 +37,7 @@ class Main {
                     afficherCompte();
                     break;
                 case 8:
-                    rechercheProprietaire();
+                    rechercheCompte();
                     break;
                 case 9:
                     modifierCompte();
@@ -50,7 +49,7 @@ class Main {
                     System.out.println("bye bye !!!!");
                     break;
                 default:
-                    System.out.println("Merci de nous Avoire choisi");
+                    System.out.println("Merci D'Avoire choisi notre Banque");
             }
         }while (choix != 0);
     }
@@ -67,16 +66,15 @@ class Main {
         System.out.println("7. Afficher les Comptes");
         System.out.println("8. Rechercher un Compte par id_proprietaire");
         System.out.println("9. Modifier un Compte");
-        System.out.println("10. Supprimer un Compte");
+        System.out.println("10.Supprimer un Compte");
 
-        System.out.print("choisi votre operation : ");
+        System.out.print("choisissz votre operation : ");
     }
     // -------------------------------- Proprietaire -----------------------------
     // 1- ajout Proprietaire
     public void ajoutProprietaire(){
         String nom,prenom,adresse;
-        int choix =0 ;
-        int continuer =0 ;
+        int continuer ;
         System.out.println("------------------ Ajout d'un Proprietaire ------------------");
        do {
            System.out.print("Nom Proprietaire : ");
@@ -89,9 +87,10 @@ class Main {
            pDAO.ajouterProprietaire(p);
 
            System.out.println("Tapez 1 pour contunier 0 pour Quiter");
-           continuer = Integer.parseInt(sc.nextLine());
+           continuer = lireUNnombreEntier();
 
        }while (continuer ==1);
+        System.out.println("=============================  Fin D'Ajout ============================");
     }
     // 2-   Affichage Proprietaire
     public void afficherProprietaire(){
@@ -104,10 +103,12 @@ class Main {
     }
     // 3- recherche
     public void rechercheProprietaire (){
+        System.out.println("============================== Rechercheer un proprietaire ============================== ");
+
         int id ;
         System.out.println("");
         System.out.print("Donner L'id a rechercher : ");
-        id = Integer.parseInt(sc.nextLine());
+        id = lireUNnombreEntier();
         Proprietaire p = pDAO.rechercherProprietaires(id);
         if (p != null){
             System.out.println(p);
@@ -116,18 +117,20 @@ class Main {
             System.out.println( "l'id "+id+" n'existe pas !!!");
         }
         System.out.println("");
+        System.out.println("============================== Fin de recherche  ============================== ");
     }
 
     // 4- modification
     public void modifierProprietaire(){
+        System.out.println("============================== Modification D'un proprietaire ============================== ");
         int id , nouvId;
         String nouvNom,nouvPrenom,nouvAdresse;
         System.out.print("Donner L'id a Modifier : ");
-        id = Integer.parseInt(sc.nextLine());
+        id = lireUNnombreEntier();
         Proprietaire p = pDAO.rechercherProprietaires(id);
         if (p != null){
             System.out.print("donnez le nouveau Id : ");
-            nouvId = Integer.parseInt(sc.nextLine());
+            nouvId = lireUNnombreEntier();
             System.out.print("donnez le nouveau Nom : ");
             nouvNom =sc.nextLine();
             System.out.print("donnez le nouveau Prenom : ");
@@ -144,13 +147,15 @@ class Main {
         else {
             System.out.println( "Aucun proprietaire trouve  !!! ");
         }
+        System.out.println("============================== Fin du Modification  ============================== ");
     }
 
     //5- sppression
     public void supprimerProprietaire() {
+        System.out.println("============================== Suppression d'un proprietaire ============================== ");
       int id ;
         System.out.print("Donner L'id a Supprimer : ");
-        id = Integer.parseInt(sc.nextLine());
+        id = lireUNnombreEntier();
         Proprietaire p = pDAO.rechercherProprietaires(id);
         if (p != null){
            pDAO.supprimerProprietaire(p);
@@ -159,43 +164,46 @@ class Main {
         else {
             System.out.println( "Aucun proprietaire trouve  !!! ");
         }
-
+        System.out.println("============================== Fin du suppression ============================== ");
     }
 
 //------------------------------- compte------------------------------------------
     // 6- ajoute d'un compte
     public void ajoutDunCompte(){
+        System.out.println("******************************** Ajout d'un compte ********************************");
         String numero;
         double solde;
         int id_proprietaire ,continuer;
        do {
            System.out.print("Donnez le numero du Compte : ");
            numero = sc.nextLine();
-           System.out.print("Donnez la solde a ajouteter : ");
-           solde = Double.parseDouble(sc.nextLine());
+           System.out.print("Donnez la solde a ajouter : ");
+           solde = lireunNombreReel();
            System.out.print("Donnez l'id du proprietaire : ");
-           id_proprietaire = Integer.parseInt(sc.nextLine());
+           id_proprietaire = lireUNnombreEntier();
            Compte c = new Compte(numero,solde,id_proprietaire);
            cDAO.ajouterCompte(c);
            System.out.println("Tapez 1 pour contunier 0 pour Quiter");
-           continuer = Integer.parseInt(sc.nextLine());
+           continuer = lireUNnombreEntier();
        }while (continuer == 1);
+        System.out.println("******************************** Fin D'Ajout ********************************");
     }
     // 7- affichage
     public void afficherCompte(){
         ArrayList<Compte> comptes = cDAO.getCompte();
-        System.out.println("============================== Affichage des comptes  ============================== ");
+        System.out.println("******************************** Affichage des comptes ******************************** ");
         for (Compte c : comptes){
             System.out.println(c);
         }
-        System.out.println("============================== Fin d'affichage  ============================== ");
+        System.out.println("********************************Fin d'affichage  ******************************** ");
     }
     // 8- recherche
     public void rechercheCompte (){
+        System.out.println("******************************** Recherche d'un compte ********************************");
         int id_proprietaire ;
         System.out.println("");
         System.out.print("Donner L'id a rechercher : ");
-        id_proprietaire = Integer.parseInt(sc.nextLine());
+        id_proprietaire = lireUNnombreEntier();
        Compte c = cDAO.rechercherUnCompte(id_proprietaire);
         if (c != null){
             System.out.println(c);
@@ -203,36 +211,36 @@ class Main {
         else {
             System.out.println( "Aucune compte trouve !!!");
         }
-        System.out.println("");
+        System.out.println("******************************** Fin du Recherche ********************************");
     }
     // 9- modifier compte
     public void modifierCompte(){
-        int nouvId_proprietaire,id_proprietaire;
-         String nouvNumero;
+        System.out.println("******************************** Modification d'un compte ********************************");
+        int id_proprietaire;
+
          double nouvSolde;
-        System.out.print("Donner L'id a Modifier : ");
-        id_proprietaire = Integer.parseInt(sc.nextLine());
+        System.out.print("Donner L'id Proprietaire : ");
+        id_proprietaire = lireUNnombreEntier();
         Compte c = cDAO.rechercherUnCompte(id_proprietaire);
         if (c != null){
-            System.out.print("donnez le nouveau Numero: ");
-            nouvNumero = sc.nextLine();
             System.out.print("donnez le nouveau solde : ");
-            nouvSolde =Double.parseDouble(sc.nextLine());
-            c.setNumero(nouvNumero);
+            nouvSolde = lireunNombreReel();
             c.setSolde(nouvSolde);
            cDAO.modifierCompte(c);
-            System.out.println("Compte modifier avec succès");
+            System.out.println("solde modifier avec succès");
         }
         else {
             System.out.println( "Aucun Compte trouve  !!! ");
         }
+        System.out.println("******************************** Fin du  Modification ********************************");
     }
 
     // 10- suppression
     public void supprimerUnCompte() {
+        System.out.println("******************************** Suppression d'un compte ********************************");
         int id_proprietaire ;
-        System.out.print("Donner L'id a Supprimer : ");
-        id_proprietaire = Integer.parseInt(sc.nextLine());
+        System.out.print("Donner L'id Proprietaire : ");
+        id_proprietaire = lireUNnombreEntier();
         Compte c = cDAO.rechercherUnCompte(id_proprietaire);
         if (c != null){
             cDAO.supprimerUnCompte(c);
@@ -241,6 +249,31 @@ class Main {
         else {
             System.out.println( "Aucun Compte trouve  !!! ");
         }
+        System.out.println("******************************** Fin du  Suppression ********************************");
+    }
 
+
+    // methode pour lire  un nombre entier
+    public int lireUNnombreEntier() {
+        while (true) {
+            try {
+                int nb = Integer.parseInt(sc.nextLine());
+                return nb;
+            } catch (NumberFormatException e) {
+                System.out.println("Erreur : Entrez un nombre entier");
+            }
+        }
+    }
+
+    // methode pour lire un nombre Reel / Double
+    public double lireunNombreReel() {
+        while (true) {
+            try {
+                double nb = Double.parseDouble(sc.nextLine());
+                return nb;
+            } catch (NumberFormatException e) {
+                System.out.println("Erreur : Entrez un nombre");
+            }
+        }
     }
 }
